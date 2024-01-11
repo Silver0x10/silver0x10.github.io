@@ -1,0 +1,73 @@
+:root {
+    --background-color: rgb(222, 163, 14);
+    --border-color: rgba(255, 255, 255, 0.336);
+}
+
+body {
+    background-color: var(--background-color);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0px;
+    overflow: hidden;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, a, p, span {
+    font-family: 'Courier Prime', monospace;
+    color: white;
+}
+
+#bond {
+    font-family: 'Courier Prime', monospace;
+    color: white;
+    font-weight: 700;
+    font-size: 42px;
+    
+}
+
+a {
+    text-decoration: none;
+}
+
+nav {
+    display: flex;
+    /* width: 100%; */
+    /* border-bottom: 1px solid var(--border-color); */
+}
+
+nav > .nav_section {
+    display: flex;
+    gap: 1rem;
+    padding: 0.5rem 2rem;
+    /* border-left: 1px solid var(--border-color); */
+    align-items: center;
+    justify-content: center;
+    flex-basis: calc(100% / 3);
+}
+
+#menu {
+   justify-content: flex-start;
+}
+
+#sections {
+    gap: 2rem;
+}
+
+#contacts {
+    justify-content: flex-end;
+}
+
+section {
+    padding: 2rem;
+    height: 100%;
+    display: grid;
+}
+
+footer {
+    padding: 2rem;
+}
+
