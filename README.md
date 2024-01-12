@@ -6,6 +6,6 @@ The idea is to create a porfolio with the projects I've worked on so far. \
 - [ ] Effetto scrittura
 - [ ] Ciambella rotante 3d
 - [ ] Sezione progetti
-- [ ] Icone e link navigation bar
+- [ ] ~~Icone e~~ link navigation bar
 - [ ] about section
 - [ ] blog section (?)
