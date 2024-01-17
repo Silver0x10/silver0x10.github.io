@@ -3,8 +3,12 @@
     --border-color: rgba(255, 255, 255, 0.336);
 }
 
+main, nav {
+    position: relative;
+}
+
 body {
-    background-color: var(--background-color);
+    /* background-color: var(--background-color); */
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -35,14 +39,14 @@ a {
 nav {
     display: flex;
     width: 100%;
-    border-bottom: 1px solid var(--border-color);
+    /* border-bottom: 1px solid var(--border-color); */
 }
 
 nav > .nav_section {
     display: flex;
     gap: 1rem;
     padding: 1.5rem 2rem;
-    border-left: 1px solid var(--border-color);
+    /* border-left: 1px solid var(--border-color); */
     align-items: center;
     justify-content: center;
     flex-basis: calc(100% / 3);
