@@ -9,6 +9,6 @@
   "scripts": {
     "dev": "npx vite",
     "build": "npx vite build",
-    "deploy": "gh-pages -b main -d dist"
+    "deploy": "gh-pages -d dist"
   }
 }
