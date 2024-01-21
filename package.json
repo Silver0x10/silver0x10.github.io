@@ -7,8 +7,8 @@
     "vite": "^5.0.11"
   },
   "scripts": {
-    "build": "npx vite",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -b main -d build"
+    "dev": "npx vite",
+    "build": "npx vite build",
+    "deploy": "gh-pages -b main -d dist"
   }
 }
