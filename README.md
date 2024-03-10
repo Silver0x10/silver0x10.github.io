@@ -1,11 +1,12 @@
 # Hi!
 This should be my personal page. \
-The idea is to create a porfolio with the projects I've worked on so far. \
+The idea is to create a porfolio with the best projects I've worked on so far. 
 
 # ToDOs
-- [ ] Ciambella rotante 3d
-- [ ] Effetto scrittura
-- [ ] Sezione progetti
-- [ ] about section
-- [ ] blog section (?)
 - [X] Icone e link navigation bar
+- [X] Rotating 3D donut
+- [ ] Projects Section
+- [ ] Optimize for Google search
+- [ ] CV download
+- [ ] Writing effect
+- [ ] blog section (?)
