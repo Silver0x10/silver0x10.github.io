@@ -5,7 +5,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 const yellow = new THREE.Color(0xdea30e);
 const purple = new THREE.Color(0x6e00cc);
 const green = new THREE.Color(0x22ff12);
-const donut_path = "assets/donut.glb"
+const donut_path = "./assets/donut.glb";
 
 const scene = new THREE.Scene();
 
