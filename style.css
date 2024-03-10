@@ -1,5 +1,6 @@
 :root {
-    --background-color: rgb(222, 163, 14);
+    --yellow: #dea30e;
+    --purple: #6e00cc;
     --border-color: rgba(255, 255, 255, 0.336);
 }
 
@@ -8,69 +9,88 @@ main, nav {
 }
 
 body {
-    background-color: var(--background-color);
+    background-color: var(--yellow);
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    /* height: 100vh; */
     margin: 0px;
     overflow: hidden;
     font-family: 'Courier Prime', monospace;
     color: white;
+    font-size: 23px;
 }
 
 * {
     box-sizing: border-box;
 }
 
-h1, h2, h3, h4, a, p, span {
+h1, h2, h3, h4, p, span {
     font-family: 'Courier Prime', monospace;
     color: white;
+    margin: 0;
+    margin-bottom: 1%;
 }
 
-#bond {
-    font-family: 'Courier Prime', monospace;
-    color: white;
-    font-weight: 700;
-    font-size: 4vw;
+h1 {
+    /* font-weight: 700; */
+    font-size: 5vw;
+    
+}
+
+h2 {
+    font-size: 3vw;
+    /* line-height: 5vh; */
 }
 
 a {
     text-decoration: none;
+    font-family: 'Courier Prime', monospace;
+    color: white;
+}
+
+a:hover {
+    color: var(--purple);
 }
 
 nav {
     display: flex;
     width: 100%;
     /* border-bottom: 1px solid var(--border-color); */
+    height: 10%;
+    font-size: 42px;
 }
 
-nav > .nav_section {
+nav .nav_section {
     display: flex;
     gap: 1rem;
     padding: 1.5rem 2rem;
     /* border-left: 1px solid var(--border-color); */
     align-items: center;
     justify-content: center;
-    flex-basis: calc(100% / 3);
-    font-size: 2vw;
+    flex-basis: calc(100% / 2);
+    color: white;
+}
+
+.fa-brands:hover, .fa-rocket:hover, .fa-envelope:hover {
+    color: var(--purple);
 }
 
 #menu {
-   justify-content: flex-start;
-}
-
-#sections {
-    gap: 2rem;
+    justify-content: flex-start;
 }
 
 #contacts {
     justify-content: flex-end;
 }
 
+#contacts a:not(:last-child){
+    margin-right: 0.5vw;
+}
+
 section {
     padding: 2rem;
     height: 100%;
-    display: grid;
+    /* display: grid; */
 }
 
 footer {
@@ -81,4 +101,28 @@ canvas {
     position: fixed;
     top: 0;
     left: 0;
+}
+
+.accent {
+    color: var(--purple);
+    
+}
+
+@media (max-width: 700px) {
+    body {
+        font-size: 16px;
+    }
+
+    nav {
+        font-size: 30px;
+    }
+
+    h1 {
+        font-size: 35px;
+        
+    }
+    
+    h2 {
+        font-size: 23px;
+    }
 }
