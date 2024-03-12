@@ -14,7 +14,7 @@ body {
     flex-direction: column;
     /* height: 100vh; */
     margin: 0px;
-    overflow: hidden;
+    overflow-x: hidden;
     font-family: 'Courier Prime', monospace;
     color: white;
     font-size: 23px;
@@ -40,6 +40,10 @@ h1 {
 h2 {
     font-size: 3vw;
     /* line-height: 5vh; */
+}
+
+h3 {
+    font-size: 2vw;
 }
 
 a {
@@ -71,6 +75,12 @@ nav .nav_section {
     color: white;
 }
 
+section {
+    padding: 4%;
+    height: 100%;
+    /* display: grid; */
+}
+
 .fa-brands:hover, .fa-rocket:hover, .fa-envelope:hover {
     color: var(--purple);
 }
@@ -87,26 +97,55 @@ nav .nav_section {
     margin-right: 0.5vw;
 }
 
-section {
-    padding: 2rem;
-    height: 100%;
-    /* display: grid; */
+#about {
+    height: 90vh;
 }
+
 
 footer {
     padding: 2rem;
 }
 
-canvas {
+#bg {
     position: fixed;
     top: 0;
     left: 0;
+    /* height: 100vh;
+    width: 100vw; */
+    z-index: 0;
+    filter: blur(5px);
 }
 
 .accent {
     color: var(--purple);
     
 }
+
+.project {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    align-items: center;
+    margin-bottom: 30px; 
+}
+
+.project-canvas {
+    background-color: #6e00cc;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    height: 300px;
+}
+
+.project-right .project-content {
+    order: 1;
+}
+
+li {
+    list-style-type: circle;
+    margin-left: 0px;
+}
+  
 
 @media (max-width: 700px) {
     body {
@@ -124,5 +163,21 @@ canvas {
     
     h2 {
         font-size: 23px;
+    }
+    
+    h3 {
+        font-size: 20px;
+    }
+
+    .project {
+        grid-template-columns: 1fr; /* Stack elements vertically on small screens */
+    }
+    
+    .project-content, .project-canvas {
+        order: 0; /* Reset order to default for all elements */
+    }
+
+    .project-canvas {
+        order: 1; /* Ensure the canvas is always below the text on small screens */
     }
 }

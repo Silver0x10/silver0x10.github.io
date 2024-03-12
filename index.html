@@ -1,24 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Silverio Manganaro</title>
+    <meta name="author" content="Silverio Manganaro" />
+    <meta name="description" content="Silverio Manganro's portfolio. Computer Scientist. MSc Student of AI and Robotics at Sapienza University of Rome. Cinema lover." />
     <link rel="icon" href="./assets/rocket-solid.svg">
-    <!-- <meta name="google-site-verification" content="PjqNyJhro3Zza2wVOdvE6DDXtemtEJ2-ugVRfTcwWdM" /> -->
-    <script src="https://kit.fontawesome.com/fe41c92c88.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
+
+    <script src="https://kit.fontawesome.com/fe41c92c88.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <!-- <meta name="google-site-verification" content="PjqNyJhro3Zza2wVOdvE6DDXtemtEJ2-ugVRfTcwWdM" /> -->
+
 </head>
+
 <body>
 
     <canvas id="bg"> </canvas>
 
     <nav>
         <div id="menu" class="nav_section">
-            <i class="fa-solid fa-rocket"></i>
+            <a href="#projects" class="fa-solid fa-rocket"></a>
+            <!-- <i class="fa-solid fa-rocket"></i> -->
         </div>
 
         <div id="contacts" class="nav_section">
@@ -26,10 +34,9 @@
             <a target="_blank" rel="noopener noreferrer" class="fa-brands fa-github" href="https://github.com/Silver0x10"></a>
             <a target="_blank" rel="noopener noreferrer" class="fa-brands fa-linkedin-in" href="https://www.linkedin.com/in/silverio-manganaro"></a>
             <a target="_blank" rel="noopener noreferrer" class="fa-brands fa-instagram" href="https://www.instagram.com/silverio_man/"></a>
-            <!-- <i class="fa-brands fa-x-twitter" style="color: #ffffff"></i> -->
         </div>
     </nav>
-
+    
     <main>
 
         <section id="about">
@@ -40,23 +47,112 @@
             </h1>
             <h2>
                 Computer Scientist <br>
-                <!-- + AI & Robotics Enthusiast <br> -->
+                <!-- AI & Robotics Enthusiast <br> -->
             </h2>
             I'm a MSc student of AI & Robotics at <a href="https://www.uniroma1.it/en/pagina-strutturale/home" target="_blank" rel="noopener noreferrer">Sapienza</a>. <br>
             This should be my portfolio. <br>
             But not only.
-
+            
         </section>
         
-        <!-- <section id="projects">
-            <h2>Projects</h2>
-        </section>  -->
+        <section id="projects">
+            <h1 class="accent">Projects</h1>
+            
+            <br>
+            
+            <article class="project project-left">
+                <div class="project-content">
+                    <h2><a target="_blank" rel="noopener noreferrer" href="https://github.com/Silver0x10/AlmostSfM">Structure from Motion</a></h2>
+                    <p>
+                        <ul>
+                            <li>Landmarks Triangulation</li>
+                            <li>Bundle Adjustment</li>
+                            <li>Landmarks Registration</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="project-canvas">
+                    <canvas></canvas>
+                </div>
+            </article>
+            
+            <br>
+
+            <article class="project project-right">
+                <div class="project-content">
+                    <h2><a >Pin-Point Autonomous Lunar Landing</a></h2>
+                    [Public soon!]
+                    <p>
+                        <ul>
+                            <li>Deep Reinforcement Learning</li>
+                            <li>Asynchronous Improved Soft Actor Critic</li>
+                            <li>PyBullet and Gymnasium for 3D and 2D simulations</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="project-canvas">
+                    <canvas></canvas>
+                </div>
+            </article>
+        
+            <br>
+            
+            <article class="project project-left">
+                <div class="project-content">
+                    <h2><a target="_blank" rel="noopener noreferrer" href="https://github.com/micco00x/AMR22-FP1">Autonomous Humanoid Navigation in Multi‑Floor Environments</a></h2>
+                    <p>
+                        <ul>
+                            <li>Multi Level Surface Map</li>
+                            <li>RRT-based Footstep Planner</li>
+                            <li>Gait Generation via IS-MPC</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="project-canvas">
+                    <canvas></canvas>
+                </div>
+            </article>
+            
+            <br>
+            
+            <article class="project project-right">
+                <div class="project-content">
+                    <h2><a target="_blank" rel="noopener noreferrer" href="https://github.com/Colonna17/Collision_Avoidance-Sapienza_Vision_and_Perception">Car Crash Detection</a></h2>
+                    <p>
+                        <ul>
+                            <li>Object Tracking and Optical Flow estimation</li>
+                            <li>Bad weather conditions</li>
+                            <li>Only RGB camera</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="project-canvas">
+                    <canvas></canvas>
+                </div>
+            </article>
+
+            <br>
+            
+            <article class="project project-left">
+                <div class="project-content">
+                    <h2><a target="_blank" rel="noopener noreferrer" href="https://github.com/Silver0x10/SimplePlanner">Simple Planner</a></h2>
+                    <p>
+                        <ul>
+                            <li>ROS2 integration</li>
+                            <li>Uniform Cost Search</li>
+                            <li>Signed Distance Function</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="project-canvas">
+                    <canvas></canvas>
+                </div>
+            </article>
+
+        </section> 
+        
         
     </main>
-
-    <!-- <footer>
-        <p>&copy; 2024 Silverio Manganaro</p>
-    </footer> -->
 
     <script type="module" src="/main.js"></script>
 </body>
