@@ -78,7 +78,6 @@ function moveCamera() {
     // donut.position.y = t * 0.0001;
 }
 document.body.onscroll = moveCamera;
-// document.addEventListener("onscroll", moveCamera, false);
 
 function animate() {
     requestAnimationFrame(animate);
