@@ -66,6 +66,19 @@ function onWindowResize() {
 }
 window.addEventListener('resize', onWindowResize, false);
 
+function moveCamera() {
+    const t = document.body.getBoundingClientRect().top;
+    // camera.position.z = t * -0.01;
+    camera.position.x = t * 0.001;
+    camera.position.y = t * 0.0035;
+
+    donut.rotation.x += t * 0.0001;
+    donut.rotation.y += t * 0.0001;
+    donut.rotation.z += t * 0.0001;
+    // donut.position.y = t * 0.0001;
+}
+document.body.onscroll = moveCamera;
+// document.addEventListener("onscroll", moveCamera, false);
 
 function animate() {
     requestAnimationFrame(animate);
