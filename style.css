@@ -102,7 +102,7 @@ section {
 }
 
 #about {
-    height: 90vh;
+    height: max(700px, 90vh);
 }
 
 
@@ -130,7 +130,7 @@ footer {
     grid-template-columns: repeat(2, 1fr);
     gap: 40px;
     align-items: center;
-    margin-bottom: 30px; 
+    margin-bottom: 50px; 
 }
 
 .project-canvas {
@@ -138,15 +138,28 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center; 
-    height: 300px;
+    width: 100%;
+    background-position: center;
+    /* background-position: 0 0; Posizione del ritaglio */
+    background-repeat: no-repeat; /* Evita la ripetizione dell'immagine */
+    background-size: contain; /* Ridimensiona l'immagine per coprire completamente il div */
+    border-radius: 20px;
 }
 
 .project-right .project-content {
     order: 1;
 }
 
+@counter-style space-counter {
+    system: cyclic;
+    symbols: "-";
+    /* symbols: "\1F680"; */
+    /* symbols: "\1F312" "\1F313" "\1F314"; */
+    suffix: " ";
+  }
+
 li {
-    list-style-type: circle;
+    list-style-type: space-counter;
     margin-left: 0px;
 }
   
@@ -175,13 +188,16 @@ li {
 
     .project {
         grid-template-columns: 1fr; /* Stack elements vertically on small screens */
+        margin-bottom: 0px;
+        gap: 0px;
     }
     
-    .project-content, .project-canvas {
+    .project-content {
         order: 0; /* Reset order to default for all elements */
     }
-
+    
     .project-canvas {
         order: 1; /* Ensure the canvas is always below the text on small screens */
+        margin-bottom: 50px;
     }
 }

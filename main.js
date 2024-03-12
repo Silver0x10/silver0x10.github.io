@@ -23,7 +23,11 @@ const renderer = new THREE.WebGLRenderer({ // the renderer has to know which sce
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight); // set the size of the rendered view to the size of the window
 
-camera.position.setZ(10); // move the camera in the z direction
+let t = document.body.getBoundingClientRect().top;
+camera.position.z = 10 + t;
+console.log(t);
+camera.position.x = t * 0.0005;
+camera.position.y = t * 0.0005;
 
 const light = new THREE.PointLight(0xaaaaaa, 700);
 light.position.set(-15,-10,15);
@@ -67,14 +71,16 @@ function onWindowResize() {
 window.addEventListener('resize', onWindowResize, false);
 
 function moveCamera() {
-    const t = document.body.getBoundingClientRect().top;
-    // camera.position.z = t * -0.01;
-    camera.position.x = t * 0.001;
-    camera.position.y = t * 0.0035;
+    t = document.body.getBoundingClientRect().top;
+    camera.position.z = 10 - t*0.01;
+    console.log(t, camera.position.z);
 
-    donut.rotation.x += t * 0.0001;
-    donut.rotation.y += t * 0.0001;
-    donut.rotation.z += t * 0.0001;
+    camera.position.x = t * 0.0005;
+    camera.position.y = t * 0.0005;
+
+    donut.rotation.x += t * 0.00003;
+    donut.rotation.y += t * 0.00003;
+    donut.rotation.z += t * -0.00009;
     // donut.position.y = t * 0.0001;
 }
 document.body.onscroll = moveCamera;
