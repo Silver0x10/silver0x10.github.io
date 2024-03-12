@@ -201,3 +201,32 @@ li {
         margin-bottom: 50px;
     }
 }
+
+#backToTopBtn {
+    /* display: none; */
+    pointer-events: auto;
+    font-size: 25px;
+    position: fixed; 
+    bottom: 20px; /* Place the button 20px from the bottom */
+    right: 20px; /* Place the button 30px from the right */
+    z-index: 2;
+    border: none; /* Remove borders */
+    outline: none; 
+    background-color: white; /* Light grey background */
+    color: var(--purple);
+    cursor: pointer; /* Pointer cursor on hover */
+    /* padding: 23px; */
+    border-radius: 50%; /* Rounded corners */
+    width: 50px;
+    height: 50px;
+    justify-content: center; /* Centra l'SVG orizzontalmente */
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  #backToTopBtn:hover {
+    background-color: var(--purple); /* Add a dark grey background on hover */
+    color: white;
+  }
+  

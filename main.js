@@ -25,7 +25,6 @@ renderer.setSize(window.innerWidth, window.innerHeight); // set the size of the 
 
 let t = document.body.getBoundingClientRect().top;
 camera.position.z = 10 + t;
-console.log(t);
 camera.position.x = t * 0.0005;
 camera.position.y = t * 0.0005;
 
@@ -54,37 +53,9 @@ loader.load( donut_path, function ( model ) {
     scene.add(donut); 
 }, undefined, function ( error ) { console.error( error ); } );
   
-
 renderer.render(scene, camera); // render the scene from the perspective of the camera
 
-
-function onWindowResize() {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    aspectRatio = width / height;
-    camera.left = -aspectRatio;
-    camera.right = aspectRatio;
-    camera.updateProjectionMatrix();
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight); // set the size of the rendered view to the size of the window
-}
-window.addEventListener('resize', onWindowResize, false);
-
-function moveCamera() {
-    t = document.body.getBoundingClientRect().top;
-    camera.position.z = 10 - t*0.01;
-    console.log(t, camera.position.z);
-
-    camera.position.x = t * 0.0005;
-    camera.position.y = t * 0.0005;
-
-    donut.rotation.x += t * 0.00003;
-    donut.rotation.y += t * 0.00003;
-    donut.rotation.z += t * -0.00009;
-    // donut.position.y = t * 0.0001;
-}
-document.body.onscroll = moveCamera;
-
+// Animation Loop
 function animate() {
     requestAnimationFrame(animate);
 
@@ -97,3 +68,54 @@ function animate() {
     renderer.render(scene, camera);
 }
 animate();
+
+// Window Resizing
+function onWindowResize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    aspectRatio = width / height;
+    camera.left = -aspectRatio;
+    camera.right = aspectRatio;
+    camera.updateProjectionMatrix();
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight); // set the size of the rendered view to the size of the window
+}
+window.addEventListener('resize', onWindowResize, false);
+
+// Buttons behavior
+var aboutHeight = document.getElementById("about").offsetHeight;
+var goToTopButton = document.getElementById("backToTopBtn");
+goToTopButton.onclick = function() {
+    window.scrollTo({top: 0});
+}
+document.getElementById('rocket').addEventListener('click', function() {
+    document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+});
+
+// Scrolling Events
+function moveCamera() {
+    t = document.body.getBoundingClientRect().top;
+    camera.position.z = 10 - t*0.01;
+
+    camera.position.x = t * 0.0005;
+    camera.position.y = t * 0.0005;
+
+    donut.rotation.x += t * 0.00003;
+    donut.rotation.y += t * 0.00003;
+    donut.rotation.z += t * -0.00009;
+    // donut.position.y = t * 0.0001;
+}
+function goToTopButtonBehavior(){
+    if (document.body.scrollTop > aboutHeight || document.documentElement.scrollTop > aboutHeight) {
+        goToTopButton.style.opacity = 1;
+        goToTopButton.style.pointerEvents = "auto";
+    } else {
+        goToTopButton.style.opacity = 0;
+        goToTopButton.style.pointerEvents = "none";
+    }
+}
+function onScrollFunction() {
+    moveCamera();
+    goToTopButtonBehavior();
+}
+document.body.onscroll = onScrollFunction;
