@@ -50,10 +50,17 @@ loader.load( donut_path, function ( model ) {
     scene.add(donut); 
 }, undefined, function ( error ) { console.error( error ); } );
   
+
 renderer.render(scene, camera); // render the scene from the perspective of the camera
 
 
 function onWindowResize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    aspectRatio = width / height;
+    camera.left = -aspectRatio;
+    camera.right = aspectRatio;
+    camera.updateProjectionMatrix();
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight); // set the size of the rendered view to the size of the window
 }
