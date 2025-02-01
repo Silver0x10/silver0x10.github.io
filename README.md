@@ -20,7 +20,7 @@ npm run deploy
 # ToDOs
 
 ## general / home
-- [ ] fix blur effect on the borders
+- [X] fix blur effect on the borders [01.02.25]
 - [ ] Optimize for Google search
 - [ ] CV download
 - [ ] Writing effect
