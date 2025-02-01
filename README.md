@@ -35,5 +35,5 @@ npm run deploy
 - [ ] RL project link
 - [ ] make more clear the separation between each project
 - [ ] transition between home and project (fixed on one until a "powerfull" scroll happens)
-- [ ] make the arrow to go back home better looking and the same in all OSsq
+- [X] make the ↑ arrow to go back home better looking and the same in all OSs [01.02.25]
 
