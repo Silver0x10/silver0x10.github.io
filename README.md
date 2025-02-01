@@ -28,11 +28,12 @@ npm run deploy
 
 ## 3D scene
 - [ ] make model loading faster
-- [ ] kinematic of the donut on scrolling
+- [X] movement of the donut on scrolling [01.02.25]
 
 ## projects section:
 - [ ] update with thesis work
 - [ ] RL project link
 - [ ] make more clear the separation between each project
 - [ ] transition between home and project (fixed on one until a "powerfull" scroll happens)
+- [ ] make the arrow to go back home better looking and the same in all OSsq
 

@@ -23,10 +23,10 @@ const renderer = new THREE.WebGLRenderer({ // the renderer has to know which sce
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight); // set the size of the rendered view to the size of the window
 
-let t = document.body.getBoundingClientRect().top;
-camera.position.z = 10 + t;
-camera.position.x = t * 0.0005;
-camera.position.y = t * 0.0005;
+let currentPosition = document.body.getBoundingClientRect().top;
+camera.position.z = 10 + currentPosition;
+camera.position.x = currentPosition * 0.0005;
+camera.position.y = currentPosition * 0.0005;
 
 const light = new THREE.PointLight(0xaaaaaa, 700);
 light.position.set(-15,-10,15);
@@ -56,13 +56,16 @@ loader.load( donut_path, function ( model ) {
 renderer.render(scene, camera); // render the scene from the perspective of the camera
 
 // Animation Loop
+let donutXVel = 0.002;
+let lastPosition = document.body.getBoundingClientRect().top;
 function animate() {
     requestAnimationFrame(animate);
 
-    donut.rotation.x += 0.002;
+    donut.rotation.x += donutXVel 
     donut.rotation.y += -0.001;
     donut.rotation.z += 0.001;
 
+    donutXVel *= 0.99;
     // controls.update();
 
     renderer.render(scene, camera);
@@ -92,19 +95,23 @@ document.getElementById('rocket').addEventListener('click', function() {
     document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
 });
 
-// Scrolling Events
-function moveCamera() {
-    t = document.body.getBoundingClientRect().top;
-    camera.position.z = 10 - t*0.01;
 
-    camera.position.x = t * 0.0005;
-    camera.position.y = t * 0.0005;
+// Scrolling Events :
 
-    donut.rotation.x += t * 0.00003;
-    donut.rotation.y += t * 0.00003;
-    donut.rotation.z += t * -0.00009;
-    // donut.position.y = t * 0.0001;
+// 3D Scene Behavior
+function scrollingSceneBehaviour() {
+    let currentPosition = document.body.getBoundingClientRect().top;
+    let delta = currentPosition - lastPosition;
+    lastPosition = currentPosition;
+
+    camera.position.z = 10 - currentPosition*0.01;
+    camera.position.x = currentPosition * 0.0005;
+    camera.position.y = currentPosition * 0.0005;
+
+    donutXVel += delta * 0.0001;
 }
+
+// Arrow button behavior
 function goToTopButtonBehavior(){
     if (document.body.scrollTop > aboutHeight || document.documentElement.scrollTop > aboutHeight) {
         goToTopButton.style.opacity = 1;
@@ -114,8 +121,10 @@ function goToTopButtonBehavior(){
         goToTopButton.style.pointerEvents = "none";
     }
 }
+
+// On Scroll Function
 function onScrollFunction() {
-    moveCamera();
+    scrollingSceneBehaviour();
     goToTopButtonBehavior();
 }
 document.body.onscroll = onScrollFunction;
