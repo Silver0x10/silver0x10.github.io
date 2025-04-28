@@ -35,7 +35,7 @@ npm run deploy
 ## projects section:
 - [ ] update with thesis work
 - [ ] RL project link
-- [ ] make more clear the separation between each project
+- [X] make more clear the separation between each project [28.04.25]
 - [ ] transition between home and project (fixed on one until a "powerfull" scroll happens)
 - [X] make the ↑ arrow to go back home better looking and the same in all OSs [01.02.25]
 

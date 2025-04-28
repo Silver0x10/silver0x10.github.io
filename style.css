@@ -134,13 +134,16 @@ footer {
 .project {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
+    gap: 20px;
     align-items: center;
     margin-bottom: 50px; 
+    border-radius: 20px; /* Optional: for rounded corners */
+    padding: 20px; /* Optional: adds internal spacing */
+    background: linear-gradient(145deg, rgba(110, 0, 204, 0.2), rgba(222, 163, 14, 0.2));
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .project-canvas {
-    background-color: #6e00cc;
     display: flex;
     justify-content: center;
     align-items: center; 
@@ -149,6 +152,7 @@ footer {
     /* background-position: 0 0; Posizione del ritaglio */
     background-repeat: no-repeat; /* Evita la ripetizione dell'immagine */
     background-size: contain; /* Ridimensiona l'immagine per coprire completamente il div */
+    object-fit: contain; 
     border-radius: 20px;
 }
 
@@ -156,12 +160,16 @@ footer {
     order: 1;
 }
 
+.project-content ul {
+    line-height: 2.2;
+}
+
 @counter-style space-counter {
     system: cyclic;
-    symbols: "-";
+    symbols: ">";
     /* symbols: "\1F680"; */
     /* symbols: "\1F312" "\1F313" "\1F314"; */
-    suffix: " ";
+    suffix: "  ";
   }
 
 li {
