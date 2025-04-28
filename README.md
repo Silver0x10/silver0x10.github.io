@@ -25,6 +25,8 @@ npm run deploy
 - [ ] CV download
 - [ ] Writing effect
 - [ ] blog section (?)
+- [ ] blur until loaded
+- [X] dark/light mode switch [28.04.25]
 
 ## 3D scene
 - [ ] make model loading faster

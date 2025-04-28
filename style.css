@@ -86,7 +86,7 @@ section {
     /* display: grid; */
 }
 
-.fa-brands:hover, .fa-rocket:hover, .fa-envelope:hover {
+.fa-brands:hover, .fa-rocket:hover, .fa-envelope:hover #themeToggle {
     color: var(--purple);
 }
 
@@ -95,6 +95,10 @@ section {
 }
 
 #contacts {
+    justify-content: flex-center;
+}
+
+#toggle {
     justify-content: flex-end;
 }
 

@@ -14,8 +14,6 @@ let width = window.innerWidth;
 let height = window.innerHeight;
 let aspectRatio = width / height;
 let camera = new THREE.OrthographicCamera(-aspectRatio, aspectRatio, 1, -1, 0.1, 1000);
-// const camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 0.1, 1000); // field of view, aspect ratio, near and far of the frustrum
-scene.background = yellow; // set the background color of the scene
 
 const renderer = new THREE.WebGLRenderer({ // the renderer has to know which scene to render
   canvas: document.querySelector('#bg') 
@@ -96,7 +94,7 @@ document.getElementById('rocket').addEventListener('click', function() {
 });
 
 
-// Scrolling Events :
+// ### Scrolling Events :
 
 // 3D Scene Behavior
 function scrollingSceneBehaviour() {
@@ -128,3 +126,27 @@ function onScrollFunction() {
     goToTopButtonBehavior();
 }
 document.body.onscroll = onScrollFunction;
+
+// ### end scrolling events
+
+// theme toggle
+const themeToggle = document.getElementById('themeToggle');
+const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+let isDarkMode = prefersDarkMode; 
+function setTheme() {
+  if (isDarkMode) {
+    scene.background = null;
+    themeToggle.classList.remove('fa-sun');
+    themeToggle.classList.add('fa-moon');
+  } else {
+    scene.background = yellow;
+    themeToggle.classList.remove('fa-moon');
+    themeToggle.classList.add('fa-sun');
+  }
+}
+setTheme();
+function themeToggleFn() {
+  isDarkMode = !isDarkMode;
+  setTheme();
+}
+themeToggle.addEventListener('click', themeToggleFn)
