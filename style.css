@@ -333,6 +333,8 @@ dialog::backdrop {
 
 #projects {
     position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 /* the hand-drawn line walking from one project to the next (projects.js) */

@@ -9,9 +9,9 @@ const yellow = new THREE.Color(0xdea30e);
 const darkBg = new THREE.Color(0x1a1023);
 
 const TAP_IMPULSE = 0.06;
-const MAX_SPEED = 0.4;
-const TRAVEL_SPEED = 0.28; // spin faster than this and you travel: it takes
-                           // deliberate rapid tapping or really furious scrolling
+const MAX_SPEED = 0.55;
+const TRAVEL_SPEED = 0.4; // spin faster than this...
+const TRAVEL_FRAMES = 30; // ...for this many frames straight, and you travel
 const IDLE_SPEED = 0.002;
 
 export function initDonut({ nextPage, scrollSpin = true } = {}) {
@@ -87,6 +87,7 @@ export function initDonut({ nextPage, scrollSpin = true } = {}) {
     }
 
     let donutXVel = IDLE_SPEED;
+    let fastFrames = 0;
     let lastPosition = document.body.getBoundingClientRect().top;
 
     renderer.render(scene, camera); // first paint before the animation loop starts
@@ -100,7 +101,9 @@ export function initDonut({ nextPage, scrollSpin = true } = {}) {
             donut.rotation.z += 0.001;
             donutXVel = Math.max(-MAX_SPEED, Math.min(MAX_SPEED, donutXVel * 0.99));
 
-            if (Math.abs(donutXVel) > TRAVEL_SPEED) travel();
+            // only a sustained fast spin travels: no accidental single spikes
+            fastFrames = Math.abs(donutXVel) > TRAVEL_SPEED ? fastFrames + 1 : 0;
+            if (fastFrames >= TRAVEL_FRAMES) travel();
             if (traveling) donut.scale.multiplyScalar(1.01); // grows softly while leaving
 
             camera.position.x += (pointerX * 0.05 - camera.position.x) * 0.05;
@@ -128,7 +131,7 @@ export function initDonut({ nextPage, scrollSpin = true } = {}) {
             camera.position.z = 10 - currentPosition * 0.01;
             // scrolling down rolls the donut forward, scrolling up backward;
             // the nudge is small, so only frantic scrolling can trigger a travel
-            donutXVel += Math.max(-0.005, Math.min(0.005, -delta * 0.0001));
+            donutXVel += Math.max(-0.004, Math.min(0.004, -delta * 0.0001));
         });
     }
 }
