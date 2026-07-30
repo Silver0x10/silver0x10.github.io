@@ -1,15 +1,5 @@
 {
-  "dependencies": {
-    "gh-pages": "^6.1.1",
-    "three": "^0.160.1"
-  },
-  "devDependencies": {
-    "vite": "^5.0.11",
-    "vite-plugin-glsl": "^1.2.1"
-  },
   "scripts": {
-    "dev": "npx vite",
-    "build": "npx vite build",
-    "deploy": "gh-pages -d dist"
+    "dev": "python3 -m http.server 8000"
   }
 }
