@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello, blog! — Silverio Manganaro</title>
+    <meta name="author" content="Silverio Manganaro">
+    <meta name="description" content="Why this section exists and what to expect here.">
+    <link rel="icon" href="/assets/rocket-solid.svg">
+    <script>
+        document.documentElement.dataset.theme = localStorage.getItem('theme')
+            || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    </script>
+    <link rel="preload" href="/assets/fonts/boldonse-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/blog/blog.css">
+</head>
+
+<body class="blog post">
+
+    <nav>
+        <div id="menu" class="nav_section">
+            <a href="/blog/" aria-label="Close post"><svg class="icon"><use href="/assets/icons.svg#icon-x"/></svg></a>
+        </div>
+        <div class="nav_section"></div>
+        <div id="toggle" class="nav_section">
+            <button id="themeToggle" aria-label="Toggle dark/light theme">
+                <svg class="icon theme-sun"><use href="/assets/icons.svg#icon-sun"/></svg>
+                <svg class="icon theme-moon"><use href="/assets/icons.svg#icon-moon"/></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <section>
+                <span class="post-date">2026-07-30</span>
+                <h1>navigation test.</h1>
+
+                <div class="post-body">
+                    <p>
+                        i just want to check if the navigation between posts works correctly. with the arrows and the swipe gestures. 
+                    </p>
+                </div>
+            </section>
+        </article>
+
+        <a id="prevPost" class="post-arrow post-arrow-left" aria-label="Previous post">
+            <svg class="icon"><use href="/assets/icons.svg#icon-chevron-left"/></svg>
+        </a>
+        <a id="nextPost" class="post-arrow post-arrow-right" aria-label="Next post">
+            <svg class="icon"><use href="/assets/icons.svg#icon-chevron-right"/></svg>
+        </a>
+
+        <button id="backToTopBtn" aria-label="Back to top">
+            <svg class="icon"><use href="/assets/icons.svg#icon-arrow-up"/></svg>
+        </button>
+    </main>
+
+    <script type="module" src="/blog/post.js"></script>
+</body>
+</html>

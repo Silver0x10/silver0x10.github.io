@@ -1,0 +1,133 @@
+/* blog pages: same palette as the main site, calmer layout */
+
+.blog main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+}
+
+.blog h1 {
+    font-size: clamp(35px, 5vw, 60px);
+}
+
+.blog h2 {
+    font-size: clamp(23px, 3vw, 35px);
+}
+
+.post-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 2rem;
+}
+
+.post-list li {
+    list-style-type: none;
+    margin-bottom: 1.5rem;
+}
+
+.post-list a {
+    display: block;
+    padding: 1.2rem 1.5rem;
+    border-radius: 20px;
+    background: var(--card-bg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.25s ease;
+}
+
+.post-list a:hover {
+    transform: translateY(-4px);
+    color: var(--text);
+}
+
+.post-date {
+    display: block;
+    font-size: 0.7em;
+    color: var(--accent);
+    margin-bottom: 0.4em;
+}
+
+.post-title {
+    display: block;
+    font-size: 1.2em;
+    margin-bottom: 0.4em;
+}
+
+.post-teaser {
+    display: block;
+    font-size: 0.8em;
+    opacity: 0.85;
+}
+
+/* single post pages */
+
+.post-body {
+    font-size: 0.9em;
+    line-height: 1.9;
+}
+
+.post-body img,
+.post-body video {
+    max-width: 100%;
+    border-radius: 20px;
+    display: block;
+    margin: 1.5rem auto;
+}
+
+.post-body figcaption {
+    text-align: center;
+    font-size: 0.75em;
+    opacity: 0.8;
+    margin-top: -1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* prev/next arrows on post pages */
+
+.post-arrow {
+    visibility: hidden; /* post.js reveals them once the target post is known */
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    font-size: 42px;
+    color: var(--text);
+    opacity: 0.6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 60px;
+    transition: opacity 0.25s ease, color 0.25s ease;
+}
+
+.post-arrow.ready {
+    visibility: visible;
+}
+
+.post-arrow:hover {
+    opacity: 1;
+    color: var(--accent);
+}
+
+.post-arrow-left { left: 8px; }
+.post-arrow-right { right: 8px; }
+
+@media (max-width: 700px) {
+    .post-arrow { font-size: 30px; opacity: 0.4; }
+}
+
+/* book-like page turn on swipe */
+
+body.post main {
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+body.page-turn-left main {
+    transform: translateX(-12vw) rotateY(6deg);
+    opacity: 0;
+}
+
+body.page-turn-right main {
+    transform: translateX(12vw) rotateY(-6deg);
+    opacity: 0;
+}

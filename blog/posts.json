@@ -1,0 +1,14 @@
+[
+    {
+        "title": "hello blog",
+        "date": "2026-07-29",
+        "file": "./2026-07-29-hello-blog.html",
+        "teaser": "first post."
+    },
+    {
+        "title": "navigation test",
+        "date": "2026-07-30",
+        "file": "./2026-07-30-test.html",
+        "teaser": "just a test for the navigation between posts."
+    }
+]
