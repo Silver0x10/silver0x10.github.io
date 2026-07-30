@@ -1,0 +1,33 @@
+[
+    {
+        "title": "Pin-Point Autonomous Lunar Landing",
+        "url": null,
+        "note": "[ one day it will be public :) ]",
+        "points": ["Deep Reinforcement Learning", "Asynchronous Improved SAC", "PyBullet / Gymnasium"],
+        "image": "/assets/lunar_lander.gif"
+    },
+    {
+        "title": "Structure from Motion",
+        "url": "https://github.com/Silver0x10/AlmostSfM",
+        "points": ["Landmarks Triangulation", "Bundle Adjustment", "Landmarks Registration"],
+        "image": "/assets/triangulation_test_visualization.png"
+    },
+    {
+        "title": "Autonomous Humanoid Navigation",
+        "url": "https://github.com/micco00x/AMR22-FP1",
+        "points": ["Multi‑Floor Environments", "RRT-based Footstep Planner", "Gait Generation via IS-MPC"],
+        "image": "/assets/world_of_stairs3_4x.gif"
+    },
+    {
+        "title": "Car Crash Detection",
+        "url": "https://github.com/Colonna17/Collision_Avoidance-Sapienza_Vision_and_Perception",
+        "points": ["Object Tracking + Optical Flow", "Bad weather conditions", "RGB Camera only"],
+        "image": "/assets/car_crash_detection_fail.gif"
+    },
+    {
+        "title": "Simple Planner",
+        "url": "https://github.com/Silver0x10/SimplePlanner",
+        "points": ["ROS2 integration", "Uniform Cost Search", "Signed Distance Function"],
+        "image": "/assets/planner_rviz_visualization.png"
+    }
+]

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects — Silverio Manganaro</title>
+    <meta name="author" content="Silverio Manganaro">
+    <meta name="description" content="Projects by Silverio Manganaro: AI, robotics, computer vision.">
+    <link rel="icon" href="/assets/rocket-solid.svg">
+    <script>
+        document.documentElement.dataset.theme = localStorage.getItem('theme')
+            || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    </script>
+    <link rel="preload" href="/assets/fonts/boldonse-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/style.css">
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "/vendor/three.module.js",
+            "three/addons/": "/vendor/addons/"
+        }
+    }
+    </script>
+</head>
+
+<body>
+
+    <canvas id="bg"></canvas>
+
+    <nav>
+        <div id="menu" class="nav_section">
+            <a href="/" aria-label="Home"><svg class="icon"><use href="/assets/icons.svg#icon-house"/></svg></a>
+            <a href="/blog/" aria-label="Blog"><svg class="icon"><use href="/assets/icons.svg#icon-pen"/></svg></a>
+        </div>
+
+        <div id="contacts" class="nav_section">
+            <a target="_blank" rel="noopener noreferrer" aria-label="Email me" href="mailto:silverio.manganaro@gmail.com"><svg class="icon"><use href="/assets/icons.svg#icon-envelope"/></svg></a>
+            <button id="cvButton" aria-label="Download my CV"><svg class="icon"><use href="/assets/icons.svg#icon-cv"/></svg></button>
+            <a target="_blank" rel="noopener noreferrer" aria-label="GitHub" href="https://github.com/Silver0x10"><svg class="icon"><use href="/assets/icons.svg#icon-github"/></svg></a>
+            <a target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" href="https://www.linkedin.com/in/silverio-manganaro"><svg class="icon"><use href="/assets/icons.svg#icon-linkedin"/></svg></a>
+            <a target="_blank" rel="noopener noreferrer" aria-label="Instagram" href="https://www.instagram.com/silverio_man/"><svg class="icon"><use href="/assets/icons.svg#icon-instagram"/></svg></a>
+        </div>
+
+        <div id="toggle" class="nav_section">
+            <button id="themeToggle" aria-label="Toggle dark/light theme">
+                <svg class="icon theme-sun"><use href="/assets/icons.svg#icon-sun"/></svg>
+                <svg class="icon theme-moon"><use href="/assets/icons.svg#icon-moon"/></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <section id="projects">
+            <h1 class="accent">Projects</h1>
+            <!-- project cards are rendered from /projects.json -->
+        </section>
+
+        <button id="backToTopBtn" aria-label="Back to top">
+            <svg class="icon"><use href="/assets/icons.svg#icon-arrow-up"/></svg>
+        </button>
+    </main>
+
+    <dialog id="cvDialog">
+        <p>thanks for the interest! <br> tap the red button to download my cv :)</p>
+        <div class="dialog-actions">
+            <a id="cvDownload" class="red-button" href="/assets/cv_silverio_manganaro.pdf" download aria-label="Download CV">
+                <svg class="icon"><use href="/assets/icons.svg#icon-cv"/></svg>
+            </a>
+        </div>
+        <button id="cvClose" class="dialog-close" aria-label="Close"><svg class="icon"><use href="/assets/icons.svg#icon-x"/></svg></button>
+    </dialog>
+
+    <script type="module" src="/projects/projects.js"></script>
+</body>
+</html>
