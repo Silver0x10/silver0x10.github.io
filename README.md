@@ -29,6 +29,8 @@ One-time setup (already done, keep for reference):
 - **Pages**: `/` (fixed home), `/projects/`, `/blog/`. Spinning the donut fast enough
   travels home → projects → blog → home (`nextPage` in each page's `initDonut` call).
 - **Add a project**: add one entry to `projects.json` and drop the image in `assets/`.
+  Optional `"scale"` (e.g. `0.8`) shrinks an image that would dominate its card;
+  proportions are always kept.
 - **Write a blog post**: copy `blog/2026-07-29-hello-blog.html`, rename it
   (`YYYY-MM-DD-title.html`), write the content, add one entry to `blog/posts.json`.
 - **Update the CV**: replace `assets/cv_silverio_manganaro.pdf` (keep the filename).
@@ -82,6 +84,11 @@ stroke width/color are on `#scribble-canvas` in `style.css`.
 - **Post swipe** — `blog/post.js`: `70` px minimum horizontal drag and the
   `1.5` horizontal-vs-vertical ratio.
 - **Back-to-top** — `site.js`: appears after `window.innerHeight * 0.6` of scroll.
+- **Project cards** — `projects/projects.js`: images are sized to the height of
+  the text beside them (`sizeImages()`), a card wider than the `#projects`
+  column breaks out of it (`placeCard()`) but never comes closer than `GUTTER`
+  px to the screen edge. The text column width is the `400px` in
+  `grid-template-columns` (`.project` / `.project-right` in `style.css`).
 
 # ToDOs
 
