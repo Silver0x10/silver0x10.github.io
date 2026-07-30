@@ -41,6 +41,20 @@ const revealObserver = new IntersectionObserver(function (entries) {
     }
 }, { threshold: 0.15 });
 
+// ### spread: each card sizes to its content and lands at a random spot in
+// its horizontal band (left band / right band alternating, so the path snakes)
+
+function spreadCards() {
+    const container = document.getElementById('projects');
+    const cards = [...container.querySelectorAll('.project')];
+    cards.forEach((card, i) => {
+        const avail = container.clientWidth - card.offsetWidth;
+        const band = i % 2 === 0 ? [0, 0.4] : [0.6, 1];
+        const t = band[0] + Math.random() * (band[1] - band[0]);
+        card.style.marginLeft = Math.max(0, avail * t) + 'px';
+    });
+}
+
 // ### the path: a hand-drawn line walking from one project to the next
 
 function drawProjectPath() {
@@ -96,10 +110,12 @@ fetch('/projects.json')
             container.appendChild(card);
             revealObserver.observe(card);
         });
+        spreadCards();
         drawProjectPath();
-        // images load lazily and change the layout: redraw when each arrives
-        container.querySelectorAll('img').forEach(img => img.addEventListener('load', drawProjectPath));
+        // images load lazily and change the layout: re-place when each arrives
+        container.querySelectorAll('img').forEach(img =>
+            img.addEventListener('load', () => { spreadCards(); drawProjectPath(); }));
     })
     .catch(error => console.error('Could not load projects:', error));
 
-window.addEventListener('resize', drawProjectPath);
+window.addEventListener('resize', () => { spreadCards(); drawProjectPath(); });

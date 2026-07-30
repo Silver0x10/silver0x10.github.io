@@ -368,18 +368,25 @@ dialog::backdrop {
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-columns: auto auto;
+    /* each card hugs its own content; projects.js spreads them sideways */
+    width: fit-content;
+    max-width: 100%;
+    gap: 24px;
     align-items: center;
     margin-bottom: 130px;
     border-radius: 20px;
-    padding: 20px;
+    padding: 24px;
     background: var(--card-bg);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
+.project-content {
+    max-width: 480px;
+}
+
 .project-canvas {
-    width: 100%;
+    width: min(380px, 85vw);
     object-fit: contain;
     border-radius: 20px;
 }
@@ -390,11 +397,10 @@ dialog::backdrop {
 
 .project.no-image {
     grid-template-columns: 1fr;
-    max-width: 780px;
 }
 
-.project.no-image.project-right {
-    margin-left: auto;
+.project.no-image .project-content {
+    max-width: 560px;
 }
 
 .project-content ul {
@@ -506,6 +512,11 @@ li {
     .project {
         grid-template-columns: 1fr;
         gap: 0;
+        width: 100%;
+    }
+
+    .project-content, .project.no-image .project-content {
+        max-width: none;
     }
 
     .project-content { order: 0; }
