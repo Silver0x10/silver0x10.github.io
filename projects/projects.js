@@ -54,14 +54,15 @@ function drawProjectPath() {
 
     for (let i = 0; i < cards.length - 1; i++) {
         const a = cards[i], b = cards[i + 1];
-        // leave a card on one side, enter the next on the other: the path snakes
+        // the path walks from older to newer: it leaves the lower (older) card
+        // and its arrow enters the card above, snaking side to side
         const start = {
-            x: a.offsetLeft + a.offsetWidth * (i % 2 === 0 ? 0.68 : 0.32),
-            y: a.offsetTop + a.offsetHeight - 6,
-        };
-        const end = {
             x: b.offsetLeft + b.offsetWidth * (i % 2 === 0 ? 0.35 : 0.65),
             y: b.offsetTop + 6,
+        };
+        const end = {
+            x: a.offsetLeft + a.offsetWidth * (i % 2 === 0 ? 0.68 : 0.32),
+            y: a.offsetTop + a.offsetHeight - 6,
         };
 
         const dx = end.x - start.x, dy = end.y - start.y;
