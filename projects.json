@@ -1,7 +1,36 @@
 [
     {
+        "title": "System-Wide Troubleshooting Agent",
+        "url": null,
+        "period": "NOVA Reply · 2026",
+        "note": "[ built at work, so no repo :) ]",
+        "points": ["Agentic root-cause analysis with LangGraph", "Kubernetes & OpenStack telemetry", "RAG on a Redis vector store"]
+    },
+    {
+        "title": "ROS Bag Troubleshooting Agent",
+        "url": null,
+        "period": "NOVA Reply · 2026",
+        "note": "[ built at work, so no repo :) ]",
+        "points": ["LangGraph agents + tools", "ROS bag data from a robotic simulation platform", "RAG over a Redis vector store"]
+    },
+    {
+        "title": "Mobile Network Energy Saving",
+        "url": null,
+        "period": "NOVA Reply · 2025",
+        "note": "[ built at work, so no repo :) ]",
+        "points": ["Data & integration layer for a PPO agent optimizing 4G/5G energy under QoS", "Kafka-fed FastAPI preprocessing microservice", "Geo-spatial QoS aggregation, VIAVI & O-RAN integration"]
+    },
+    {
+        "title": "Epilepsy Diagnosis from EEG",
+        "url": null,
+        "period": "MSc thesis · TU Delft · 2024 → 2025",
+        "note": "[ with the Erasmus Medical Center ]",
+        "points": ["Machine Learning on electroencephalograms", "XGBoost, AutoEncoders, WGANs, Transformers", "Performance analysis across techniques and architectures"]
+    },
+    {
         "title": "Pin-Point Autonomous Lunar Landing",
         "url": null,
+        "period": "2023 → 2024",
         "note": "[ one day it will be public :) ]",
         "points": ["Deep Reinforcement Learning", "Asynchronous Improved SAC", "PyBullet / Gymnasium"],
         "image": "/assets/lunar_lander.gif"
@@ -9,25 +38,29 @@
     {
         "title": "Structure from Motion",
         "url": "https://github.com/Silver0x10/AlmostSfM",
+        "period": "2023",
         "points": ["Landmarks Triangulation", "Bundle Adjustment", "Landmarks Registration"],
         "image": "/assets/triangulation_test_visualization.png"
     },
     {
         "title": "Autonomous Humanoid Navigation",
         "url": "https://github.com/micco00x/AMR22-FP1",
+        "period": "2023",
         "points": ["Multi‑Floor Environments", "RRT-based Footstep Planner", "Gait Generation via IS-MPC"],
         "image": "/assets/world_of_stairs3_4x.gif"
     },
     {
-        "title": "Car Crash Detection",
-        "url": "https://github.com/Colonna17/Collision_Avoidance-Sapienza_Vision_and_Perception",
-        "points": ["Object Tracking + Optical Flow", "Bad weather conditions", "RGB Camera only"],
-        "image": "/assets/car_crash_detection_fail.gif"
-    },
-    {
         "title": "Simple Planner",
         "url": "https://github.com/Silver0x10/SimplePlanner",
+        "period": "2023",
         "points": ["ROS2 integration", "Uniform Cost Search", "Signed Distance Function"],
         "image": "/assets/planner_rviz_visualization.png"
+    },
+    {
+        "title": "Car Crash Detection",
+        "url": "https://github.com/Colonna17/Collision_Avoidance-Sapienza_Vision_and_Perception",
+        "period": "2022",
+        "points": ["Object Tracking + Optical Flow", "Bad weather conditions", "RGB Camera only"],
+        "image": "/assets/car_crash_detection_fail.gif"
     }
 ]

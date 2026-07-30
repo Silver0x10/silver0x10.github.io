@@ -93,6 +93,8 @@ stroke width/color are on `#scribble-canvas` in `style.css`.
 - [X] blog section [29.07.26]
 - [ ] blur until loaded
 - [X] dark/light mode switch [28.04.25] — real theming with palette swap [29.07.26]
+- [ ] arrow pointing to the donut
+- [ ] bigger font for smartphones
 
 ## 3D scene
 - [ ] make model loading faster

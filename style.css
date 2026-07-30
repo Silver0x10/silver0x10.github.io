@@ -331,7 +331,45 @@ dialog::backdrop {
 
 /* ### projects */
 
+#projects {
+    position: relative;
+}
+
+/* the hand-drawn line walking from one project to the next (projects.js) */
+#project-path {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    fill: none;
+    stroke: var(--text);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    opacity: 0.8;
+}
+
+.projects-sub, .project-period {
+    font-family: "Caveat", cursive;
+    color: var(--text);
+}
+
+.projects-sub {
+    font-size: 30px;
+    margin-bottom: 2rem;
+}
+
+.project-period {
+    display: block;
+    font-size: 26px;
+    color: var(--accent);
+    margin-bottom: 0.3em;
+}
+
 .project {
+    position: relative;
+    z-index: 1;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
@@ -351,6 +389,15 @@ dialog::backdrop {
 
 .project-right .project-content {
     order: 1;
+}
+
+.project.no-image {
+    grid-template-columns: 1fr;
+    max-width: 780px;
+}
+
+.project.no-image.project-right {
+    margin-left: auto;
 }
 
 .project-content ul {
