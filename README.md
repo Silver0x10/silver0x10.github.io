@@ -13,7 +13,17 @@ npm run dev   # just python3 -m http.server 8000
 (or any static file server — there is nothing to build)
 
 # Deploy
-Push to `main`: GitHub Pages serves the repository root directly.
+Every push to `main` is a deploy: GitHub Pages serves the repository root
+directly. There is nothing to build and no `gh-pages` branch anymore.
+
+One-time setup (already done, keep for reference):
+1. GitHub repo → **Settings → Pages → Build and deployment**
+2. Source: **Deploy from a branch** — Branch: **`main`**, folder **`/ (root)`** → Save
+3. The custom domain (justsilver.it) keeps working because the `CNAME` file
+   lives at the repo root, so it is part of every deploy. The domain field in
+   the Pages settings should still show it; the DNS records don't change.
+4. Optional cleanup: delete the old `gh-pages` branch once the new deploy is
+   confirmed live.
 
 # How to
 - **Pages**: `/` (fixed home), `/projects/`, `/blog/`. Spinning the donut fast enough
