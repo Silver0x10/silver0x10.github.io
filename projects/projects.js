@@ -16,8 +16,11 @@ function renderProject(project, index) {
     const period = project.period ? `<span class="project-period">${project.period}</span>` : '';
     const note = project.note ? `<p>${project.note}</p>` : '';
     const points = project.points.map(p => `<li>${p}</li>`).join('');
+    // optional "scale" in projects.json shrinks an image that would otherwise
+    // dominate its card (proportions are always kept)
     const image = project.image
-        ? `<img src="${project.image}" alt="${project.title}" class="project-canvas" loading="lazy">`
+        ? `<img src="${project.image}" alt="${project.title}" class="project-canvas"
+                data-scale="${project.scale || 1}" loading="lazy">`
         : '';
 
     article.innerHTML = `
@@ -41,18 +44,73 @@ const revealObserver = new IntersectionObserver(function (entries) {
     }
 }, { threshold: 0.15 });
 
-// ### spread: each card sizes to its content and lands at a random spot in
-// its horizontal band (left band / right band alternating, so the path snakes)
+// ### images: scale each one to the exact height of its card, keeping the
+// original aspect ratio (the card grows wider when the image needs it)
 
-function spreadCards() {
-    const container = document.getElementById('projects');
-    const cards = [...container.querySelectorAll('.project')];
-    cards.forEach((card, i) => {
-        const avail = container.clientWidth - card.offsetWidth;
-        const band = i % 2 === 0 ? [0, 0.4] : [0.6, 1];
-        const t = band[0] + Math.random() * (band[1] - band[0]);
-        card.style.marginLeft = Math.max(0, avail * t) + 'px';
+function placeAll() {
+    sizeImages();
+    // second pass once the layout has settled, then redraw the path
+    requestAnimationFrame(() => { sizeImages(); drawProjectPath(); });
+}
+
+// the text is measured to size the images, but its height can change after
+// the fact (web fonts, reflows): whenever a text column resizes, re-place
+const contentObserver = new ResizeObserver(placeAll);
+
+const GUTTER = 60; // the only hard limit: stay this far inside the screen
+
+function sizeImages() {
+    const stacked = window.innerWidth <= 700; // mobile: natural flow
+    const viewport = document.documentElement.clientWidth;
+    const maxCard = viewport - GUTTER * 2;
+
+    document.querySelectorAll('.project:not(.no-image)').forEach(card => {
+        const img = card.querySelector('.project-canvas');
+        if (!img || !img.naturalWidth) return;
+        if (stacked) {
+            img.style.height = '';
+            img.style.width = '';
+            card.style.marginLeft = '';
+            card.style.marginRight = '';
+            return;
+        }
+        const aspect = img.naturalWidth / img.naturalHeight;
+
+        // as tall as the text beside it, at its own aspect ratio
+        const scale = parseFloat(img.dataset.scale) || 1;
+        const height = Math.max(card.querySelector('.project-content').offsetHeight, 240) * scale;
+        img.style.height = height + 'px';
+        img.style.width = height * aspect + 'px';
+
+        // the card may now be wider than the screen: only then shrink the image
+        const chrome = card.offsetWidth - img.offsetWidth; // text column, gap, padding
+        if (card.offsetWidth > maxCard) {
+            const width = maxCard - chrome;
+            img.style.width = width + 'px';
+            img.style.height = width / aspect + 'px';
+        }
+        placeCard(card, viewport);
     });
+}
+
+// a card wider than the column breaks out of it, without leaving the screen
+function placeCard(card, viewport) {
+    const section = card.parentElement;
+    const cs = getComputedStyle(section);
+    const padLeft = parseFloat(cs.paddingLeft);
+    const columnWidth = section.clientWidth - padLeft - parseFloat(cs.paddingRight);
+
+    if (card.offsetWidth <= columnWidth) { // fits: the CSS alternation rules
+        card.style.marginLeft = '';
+        card.style.marginRight = '';
+        return;
+    }
+    const columnLeft = section.getBoundingClientRect().left + padLeft;
+    const wanted = card.classList.contains('project-right')
+        ? viewport - GUTTER - card.offsetWidth // grow leftwards
+        : GUTTER;                              // grow rightwards
+    card.style.marginLeft = (wanted - columnLeft) + 'px';
+    card.style.marginRight = '0';
 }
 
 // ### the path: a hand-drawn line walking from one project to the next
@@ -110,12 +168,11 @@ fetch('/projects.json')
             container.appendChild(card);
             revealObserver.observe(card);
         });
-        spreadCards();
-        drawProjectPath();
-        // images load lazily and change the layout: re-place when each arrives
-        container.querySelectorAll('img').forEach(img =>
-            img.addEventListener('load', () => { spreadCards(); drawProjectPath(); }));
+        placeAll();
+        // images load lazily: size and redraw when each arrives
+        container.querySelectorAll('img').forEach(img => img.addEventListener('load', placeAll));
+        container.querySelectorAll('.project-content').forEach(c => contentObserver.observe(c));
     })
     .catch(error => console.error('Could not load projects:', error));
 
-window.addEventListener('resize', () => { spreadCards(); drawProjectPath(); });
+window.addEventListener('resize', placeAll);

@@ -333,7 +333,7 @@ dialog::backdrop {
 
 #projects {
     position: relative;
-    max-width: 1000px;
+    max-width: 1150px;
     margin: 0 auto;
 }
 
@@ -345,6 +345,7 @@ dialog::backdrop {
     height: 100%;
     z-index: 0;
     pointer-events: none;
+    overflow: visible; /* cards may sit outside the column, the path follows */
     fill: none;
     stroke: var(--text);
     stroke-width: 2.5;
@@ -364,16 +365,18 @@ dialog::backdrop {
     margin-bottom: 0.6em;
 }
 
+/* cards size themselves to their content; image cards are wide and give the
+   image the stage, text-only cards stay compact and readable */
 .project {
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: auto auto;
-    /* each card hugs its own content; projects.js spreads them sideways */
+    grid-template-columns: 400px auto; /* firm text column: the image column adapts */
     width: fit-content;
-    max-width: 100%;
-    gap: 24px;
-    align-items: center;
+    /* no column limit: a card may grow past #projects, only the screen bounds
+       it (projects.js keeps it inside the viewport) */
+    gap: 28px;
+    align-items: stretch;
     margin-bottom: 130px;
     border-radius: 20px;
     padding: 24px;
@@ -381,14 +384,28 @@ dialog::backdrop {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.project-content {
-    max-width: 480px;
+/* alternate the cards along the path, deterministically; on right cards the
+   image comes first, so the columns mirror too (image auto, text 380px) */
+.project-left { margin-right: auto; }
+.project-right {
+    margin-left: auto;
+    grid-template-columns: auto 400px;
+}
+
+.project h2 {
+    font-size: clamp(24px, 2.4vw, 34px);
 }
 
 .project-canvas {
-    width: min(380px, 85vw);
-    object-fit: contain;
-    border-radius: 20px;
+    /* projects.js sizes each image to the exact card height at its own
+       aspect ratio, so the card grows as wide as the image needs */
+    display: block;
+    align-self: center; /* when the width cap makes it shorter than the text */
+    border-radius: 20px; /* same rounding as the card */
+}
+
+.project-content {
+    align-self: center;
 }
 
 .project-right .project-content {
@@ -397,14 +414,13 @@ dialog::backdrop {
 
 .project.no-image {
     grid-template-columns: 1fr;
-}
-
-.project.no-image .project-content {
-    max-width: 560px;
+    max-width: min(620px, 100%);
+    font-size: 0.9em;
 }
 
 .project-content ul {
-    line-height: 2.2;
+    line-height: 1.9;
+    font-size: 0.88em;
     padding-left: 1.2em;
     margin: 0;
 }
@@ -523,6 +539,8 @@ li {
 
     .project-canvas {
         order: 1;
+        height: auto;
+        object-fit: contain;
         margin-top: 15px;
     }
 }

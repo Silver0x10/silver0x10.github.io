@@ -33,7 +33,8 @@
         "period": "2023 → 2024",
         "note": "[ one day it will be public :) ]",
         "points": ["Deep Reinforcement Learning", "Asynchronous Improved SAC", "PyBullet / Gymnasium"],
-        "image": "/assets/lunar_lander.gif"
+        "image": "/assets/lunar_lander.gif",
+        "scale": 0.8
     },
     {
         "title": "Structure from Motion",
