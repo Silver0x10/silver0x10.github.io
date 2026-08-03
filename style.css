@@ -204,9 +204,14 @@ section {
     stroke-linecap: round;
 }
 
-/* the nav labels may overlap the hero text: give them their own color */
+/* the nav labels may overlap the hero text: give them (and their arrows,
+   which main.js marks as .accent-arrow) their own color */
 #scribble-projects, #scribble-blog {
     color: var(--accent);
+}
+
+#scribble-canvas .accent-arrow {
+    stroke: var(--accent);
 }
 
 /* fallback positions; main.js randomizes them inside per-label areas */
@@ -401,6 +406,7 @@ dialog::backdrop {
        aspect ratio, so the card grows as wide as the image needs */
     display: block;
     align-self: center; /* when the width cap makes it shorter than the text */
+    justify-self: center;
     border-radius: 20px; /* same rounding as the card */
 }
 
@@ -502,6 +508,33 @@ li {
     color: var(--bg);
 }
 
+/* ### short viewports (browsers with a taller UI, small laptops): the home
+   page never scrolls, so the hero has to shrink instead of overflowing */
+
+@media (max-height: 800px) {
+    body.home { font-size: 20px; }
+    body.home h1 { font-size: min(5vw, 46px); }
+    body.home h2 { font-size: min(3vw, 28px); }
+    body.home nav { font-size: 32px; }
+    body.home .scribble { font-size: 28px; }
+    #about {
+        height: calc(100vh - 130px);
+        padding-bottom: 5vh;
+    }
+}
+
+@media (max-height: 650px) {
+    body.home { font-size: 17px; }
+    body.home h1 { font-size: min(5vw, 36px); }
+    body.home h2 { font-size: min(3vw, 23px); }
+    body.home nav { font-size: 27px; }
+    body.home .scribble { font-size: 24px; }
+    #about {
+        height: calc(100vh - 105px);
+        padding-bottom: 3vh;
+    }
+}
+
 /* ### mobile */
 
 @media (max-width: 700px) {
@@ -538,9 +571,11 @@ li {
     .project-content { order: 0; }
 
     .project-canvas {
+        /* projects.js sets the width (percentage); the height follows, so the
+           aspect ratio is kept and the image can never leave the card */
         order: 1;
+        max-width: 100%;
         height: auto;
-        object-fit: contain;
         margin-top: 15px;
     }
 }
