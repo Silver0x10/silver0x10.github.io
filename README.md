@@ -84,6 +84,11 @@ stroke width/color are on `#scribble-canvas` in `style.css`.
 - **Post swipe** — `blog/post.js`: `70` px minimum horizontal drag and the
   `1.5` horizontal-vs-vertical ratio.
 - **Back-to-top** — `site.js`: appears after `window.innerHeight * 0.6` of scroll.
+- **Short viewports** — the home page never scrolls, so `@media (max-height: 800px)`
+  and `(max-height: 650px)` in `style.css` shrink the hero type; the scribble
+  labels are also clamped to the strip between the nav and the heading
+  (`placeScribbleLabels()`), which is what keeps them clear of "hello world!"
+  in browsers with a taller UI.
 - **Project cards** — `projects/projects.js`: images are sized to the height of
   the text beside them (`sizeImages()`), a card wider than the `#projects`
   column breaks out of it (`placeCard()`) but never comes closer than `GUTTER`
@@ -100,8 +105,9 @@ stroke width/color are on `#scribble-canvas` in `style.css`.
 - [X] blog section [29.07.26]
 - [ ] blur until loaded
 - [X] dark/light mode switch [28.04.25] — real theming with palette swap [29.07.26]
-- [ ] arrow pointing to the donut
-- [ ] bigger font for smartphones
+- [X] arrow pointing to the donut [29.07.26]
+- [X] bigger font for smartphones [30.07.26]
+- [ ] motociclista
 
 ## 3D scene
 - [ ] make model loading faster
@@ -109,9 +115,10 @@ stroke width/color are on `#scribble-canvas` in `style.css`.
 - [X] pointer parallax + tap the donut to spin it [29.07.26]
 
 ## projects section:
-- [ ] update with thesis work
+- [X] update with thesis work [30.07.26]
 - [ ] RL project link
 - [X] make more clear the separation between each project [28.04.25]
 - [X] projects rendered from `projects.json` [29.07.26]
+- [X] cards and images that adapt to their content [03.08.26]
 - [ ] transition between home and project (fixed on one until a "powerfull" scroll happens)
 - [X] make the ↑ arrow to go back home better looking and the same in all OSs [01.02.25]
