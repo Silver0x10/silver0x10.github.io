@@ -20,11 +20,9 @@ function donutScreenPoint() {
 // wobble bends the curve sideways; keep: distance (px) between tip and target
 // center; startDir/endDir: the tangent directions where the arrow leaves the
 // label and where it lands on the target (y up = -1)
-// accent: draw the arrow in the label's own color, so it stays visible where
-// it crosses the (white) hero text
 const scribbleArrows = [
-    { label: 'scribble-projects', target: () => iconPoint('rocket'), from: 'top', wobble: -42, keep: 0, startDir: { x: -0.3, y: -1 }, endDir: { x: 0, y: -1 }, accent: true },
-    { label: 'scribble-blog', target: () => iconPoint('pencil'), from: 'top', wobble: 46, keep: 0, startDir: { x: 0.2, y: -1 }, endDir: { x: 0, y: -1 }, accent: true },
+    { label: 'scribble-projects', target: () => iconPoint('rocket'), from: 'top', wobble: -42, keep: 0, startDir: { x: -0.3, y: -1 }, endDir: { x: 0, y: -1 } },
+    { label: 'scribble-blog', target: () => iconPoint('pencil'), from: 'top', wobble: 46, keep: 0, startDir: { x: 0.2, y: -1 }, endDir: { x: 0, y: -1 } },
     { label: 'scribble-donut', target: donutScreenPoint, from: 'bottom', wobble: 60, keep: 150, startDir: { x: 0.2, y: 1 }, endDir: { x: 0.2, y: 1 } },
 ];
 
@@ -36,25 +34,41 @@ function iconPoint(id) {
 // each label lands somewhere random inside its own area, every visit
 const rand = (min, max) => min + Math.random() * (max - min);
 
+// The notes live in a strip under the nav that the hero may never enter, so a
+// label (and its arrow, which only goes upwards from there) can never end up
+// on top of the hero text, whatever the browser or the window height.
+function notesStrip() {
+    const navBottom = document.querySelector('nav').getBoundingClientRect().bottom;
+    const line = document.getElementById('scribble-projects').offsetHeight || 34;
+    return { top: navBottom + 4, bottom: navBottom + 4 + line * 2.6 };
+}
+
+// the hero is anchored to the bottom: if it is tall enough to reach the strip,
+// scale it down (it never grows above its designed size)
+function fitHero() {
+    const hero = document.getElementById('hero');
+    hero.style.setProperty('--hero-scale', '1');
+    const rect = hero.getBoundingClientRect(); // unscaled, we just reset it
+    const room = rect.bottom - notesStrip().bottom;
+    if (rect.height > room) {
+        hero.style.setProperty('--hero-scale', Math.max(0.5, room / rect.height));
+    }
+}
+
 function placeScribbleLabels() {
     const W = window.innerWidth, H = window.innerHeight;
+    const strip = notesStrip();
+    const line = document.getElementById('scribble-projects').offsetHeight || 34;
+    // random spot inside the strip, the two labels in disjoint bands
+    const band = (from, to) => strip.top + (strip.bottom - strip.top - line) * rand(from, to);
 
-    // The hero text is anchored to the bottom of the viewport, so on a short
-    // window (browsers with a taller UI, e.g. Edge) it climbs into the notes.
-    // Keep the labels in the free strip between the nav and the heading.
-    const navBottom = document.querySelector('nav').getBoundingClientRect().bottom + 4;
-    const heroTop = document.querySelector('#about h2').getBoundingClientRect().top;
-    const lowest = Math.max(navBottom, heroTop - 46); // 46: one line of Caveat
-    const band = (min, max) => Math.max(navBottom, Math.min(rand(min, max), lowest));
-
-    // wider areas, kept apart by disjoint vertical bands
     const projects = document.getElementById('scribble-projects');
     projects.style.left = rand(0.01, 0.02) * W + 'px';
-    projects.style.top = band(115, 150) + 'px';
+    projects.style.top = band(0, 0.45) + 'px';
 
     const blog = document.getElementById('scribble-blog');
     blog.style.left = rand(0.262, 0.40) * W + 'px';
-    blog.style.top = band(160, 200) + 'px';
+    blog.style.top = band(0.55, 1) + 'px';
 
     const donut = document.getElementById('scribble-donut');
     donut.style.right = rand(0.03, 0.12) * W + 'px';
@@ -68,8 +82,8 @@ function drawScribbleArrows() {
 
     const norm = v => { const l = Math.hypot(v.x, v.y) || 1; return { x: v.x / l, y: v.y / l }; };
 
-    for (const { label, target, from, wobble, keep, startDir, endDir, accent } of scribbleArrows) {
-        let arrow = ''; // this arrow's strokes, so it can get its own color
+    for (const { label, target, from, wobble, keep, startDir, endDir } of scribbleArrows) {
+        let arrow = ''; // this arrow's strokes, grouped so it can be checked
         const rect = document.getElementById(label).getBoundingClientRect();
         // the tail starts right against the writing
         const start = from === 'top'
@@ -112,17 +126,71 @@ function drawScribbleArrows() {
             const hy = end.y - (ed.y * 0.85 + ed.x * 0.5 * side) * 14;
             arrow += `<path d="M ${hx} ${hy} L ${end.x} ${end.y}"/>`;
         }
-        markup += accent ? `<g class="accent-arrow">${arrow}</g>` : arrow;
+        markup += `<g data-note="${label}">${arrow}</g>`;
     }
     canvas.innerHTML = markup;
 }
+// the line boxes of the hero text: what the notes must never touch
+function heroTextRects() {
+    const rects = [];
+    document.querySelectorAll('#hero h1, #hero h2, #hero p').forEach(el => {
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        for (const rect of range.getClientRects()) {
+            if (rect.width > 4 && rect.height > 4) rects.push(rect);
+        }
+    });
+    return rects;
+}
+
+// which notes (label or arrow) touch the hero text right now
+function collidingNotes(texts) {
+    const hits = (x, y) => texts.some(t => x >= t.left && x <= t.right && y >= t.top && y <= t.bottom);
+    const overlaps = r => texts.some(t =>
+        !(r.right < t.left || r.left > t.right || r.bottom < t.top || r.top > t.bottom));
+
+    return scribbleArrows.filter(({ label }) => {
+        if (overlaps(document.getElementById(label).getBoundingClientRect())) return true;
+        const paths = document.querySelectorAll(`#scribble-canvas [data-note="${label}"] path`);
+        for (const path of paths) {
+            const length = path.getTotalLength();
+            for (let i = 0; i <= 24; i++) {
+                const point = path.getPointAtLength(length * i / 24);
+                if (hits(point.x, point.y)) return true;
+            }
+        }
+        return false;
+    }).map(a => a.label);
+}
+
+// Place, then verify: keep trying random placements until nothing touches the
+// hero text. If a note simply has no room (a narrow phone, where the donut
+// sits behind the text), it is dropped rather than drawn over the writing.
 function refreshScribbles() {
-    placeScribbleLabels();
-    drawScribbleArrows();
+    fitHero();
+    for (const { label } of scribbleArrows) {
+        document.getElementById(label).style.display = '';
+    }
+    const texts = heroTextRects();
+
+    for (let attempt = 0; attempt < 12; attempt++) {
+        placeScribbleLabels();
+        drawScribbleArrows();
+        const colliding = collidingNotes(texts);
+        if (!colliding.length) return;
+        if (attempt === 11) {
+            for (const label of colliding) {
+                document.getElementById(label).style.display = 'none';
+                document.querySelector(`#scribble-canvas [data-note="${label}"]`)?.remove();
+            }
+        }
+    }
 }
 refreshScribbles();
 window.addEventListener('resize', refreshScribbles);
-window.addEventListener('load', refreshScribbles); // again once fonts are in
+// the check measures text, so redo it whenever the text can have moved
+document.fonts.ready.then(refreshScribbles);
+window.addEventListener('load', refreshScribbles);
 
 // ### typewriter roles
 

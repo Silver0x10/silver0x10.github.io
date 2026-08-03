@@ -164,6 +164,13 @@ section {
     padding-bottom: 10vh; /* a bit of space from the end of the page */
 }
 
+/* main.js scales the hero down (never up) when the viewport is too short for
+   it to sit below the strip reserved for the handwritten notes */
+#hero {
+    transform: scale(var(--hero-scale, 1));
+    transform-origin: bottom left;
+}
+
 #roles {
     color: var(--accent);
     min-height: 1.4em;
@@ -204,14 +211,8 @@ section {
     stroke-linecap: round;
 }
 
-/* the nav labels may overlap the hero text: give them (and their arrows,
-   which main.js marks as .accent-arrow) their own color */
 #scribble-projects, #scribble-blog {
     color: var(--accent);
-}
-
-#scribble-canvas .accent-arrow {
-    stroke: var(--accent);
 }
 
 /* fallback positions; main.js randomizes them inside per-label areas */
