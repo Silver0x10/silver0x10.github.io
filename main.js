@@ -20,9 +20,11 @@ function donutScreenPoint() {
 // wobble bends the curve sideways; keep: distance (px) between tip and target
 // center; startDir/endDir: the tangent directions where the arrow leaves the
 // label and where it lands on the target (y up = -1)
+// accent: draw the arrow in the label's own color, so it stays visible where
+// it crosses the (white) hero text
 const scribbleArrows = [
-    { label: 'scribble-projects', target: () => iconPoint('rocket'), from: 'top', wobble: -42, keep: 0, startDir: { x: -0.3, y: -1 }, endDir: { x: 0, y: -1 } },
-    { label: 'scribble-blog', target: () => iconPoint('pencil'), from: 'top', wobble: 46, keep: 0, startDir: { x: 0.2, y: -1 }, endDir: { x: 0, y: -1 } },
+    { label: 'scribble-projects', target: () => iconPoint('rocket'), from: 'top', wobble: -42, keep: 0, startDir: { x: -0.3, y: -1 }, endDir: { x: 0, y: -1 }, accent: true },
+    { label: 'scribble-blog', target: () => iconPoint('pencil'), from: 'top', wobble: 46, keep: 0, startDir: { x: 0.2, y: -1 }, endDir: { x: 0, y: -1 }, accent: true },
     { label: 'scribble-donut', target: donutScreenPoint, from: 'bottom', wobble: 60, keep: 150, startDir: { x: 0.2, y: 1 }, endDir: { x: 0.2, y: 1 } },
 ];
 
@@ -36,15 +38,23 @@ const rand = (min, max) => min + Math.random() * (max - min);
 
 function placeScribbleLabels() {
     const W = window.innerWidth, H = window.innerHeight;
-    // wider areas, kept apart by disjoint vertical bands, and (almost)
-    // clear of the "hello world!" heading
+
+    // The hero text is anchored to the bottom of the viewport, so on a short
+    // window (browsers with a taller UI, e.g. Edge) it climbs into the notes.
+    // Keep the labels in the free strip between the nav and the heading.
+    const navBottom = document.querySelector('nav').getBoundingClientRect().bottom + 4;
+    const heroTop = document.querySelector('#about h2').getBoundingClientRect().top;
+    const lowest = Math.max(navBottom, heroTop - 46); // 46: one line of Caveat
+    const band = (min, max) => Math.max(navBottom, Math.min(rand(min, max), lowest));
+
+    // wider areas, kept apart by disjoint vertical bands
     const projects = document.getElementById('scribble-projects');
     projects.style.left = rand(0.01, 0.02) * W + 'px';
-    projects.style.top = rand(115, 150) + 'px';
+    projects.style.top = band(115, 150) + 'px';
 
     const blog = document.getElementById('scribble-blog');
     blog.style.left = rand(0.262, 0.40) * W + 'px';
-    blog.style.top = rand(160, 200) + 'px';
+    blog.style.top = band(160, 200) + 'px';
 
     const donut = document.getElementById('scribble-donut');
     donut.style.right = rand(0.03, 0.12) * W + 'px';
@@ -58,7 +68,8 @@ function drawScribbleArrows() {
 
     const norm = v => { const l = Math.hypot(v.x, v.y) || 1; return { x: v.x / l, y: v.y / l }; };
 
-    for (const { label, target, from, wobble, keep, startDir, endDir } of scribbleArrows) {
+    for (const { label, target, from, wobble, keep, startDir, endDir, accent } of scribbleArrows) {
+        let arrow = ''; // this arrow's strokes, so it can get its own color
         const rect = document.getElementById(label).getBoundingClientRect();
         // the tail starts right against the writing
         const start = from === 'top'
@@ -82,14 +93,14 @@ function drawScribbleArrows() {
 
         if (len < 140) {
             // short arrow: one clean curve, endpoint tangents only
-            markup += `<path d="M ${start.x} ${start.y}`
+            arrow += `<path d="M ${start.x} ${start.y}`
                 + ` C ${start.x + sd.x * k + perp.x * w} ${start.y + sd.y * k + perp.y * w},`
                 + ` ${end.x - ed.x * k2} ${end.y - ed.y * k2}, ${end.x} ${end.y}"/>`;
         } else {
             // two bulges on opposite sides between the constrained ends
             const m1 = { x: start.x + dx * 0.35 + perp.x * w, y: start.y + dy * 0.35 + perp.y * w };
             const m2 = { x: start.x + dx * 0.7 - perp.x * w * 0.7, y: start.y + dy * 0.7 - perp.y * w * 0.7 };
-            markup += `<path d="M ${start.x} ${start.y}`
+            arrow += `<path d="M ${start.x} ${start.y}`
                 + ` C ${start.x + sd.x * k} ${start.y + sd.y * k}, ${m1.x - dir.x * km} ${m1.y - dir.y * km}, ${m1.x} ${m1.y}`
                 + ` C ${m1.x + dir.x * km} ${m1.y + dir.y * km}, ${m2.x - dir.x * km} ${m2.y - dir.y * km}, ${m2.x} ${m2.y}`
                 + ` C ${m2.x + dir.x * km} ${m2.y + dir.y * km}, ${end.x - ed.x * k2} ${end.y - ed.y * k2}, ${end.x} ${end.y}"/>`;
@@ -99,8 +110,9 @@ function drawScribbleArrows() {
         for (const side of [1, -1]) {
             const hx = end.x - (ed.x * 0.85 + -ed.y * 0.5 * side) * 14;
             const hy = end.y - (ed.y * 0.85 + ed.x * 0.5 * side) * 14;
-            markup += `<path d="M ${hx} ${hy} L ${end.x} ${end.y}"/>`;
+            arrow += `<path d="M ${hx} ${hy} L ${end.x} ${end.y}"/>`;
         }
+        markup += accent ? `<g class="accent-arrow">${arrow}</g>` : arrow;
     }
     canvas.innerHTML = markup;
 }
@@ -123,6 +135,7 @@ const roles = [
     "Runner",
     "Hiker",
     "Maker",
+    "Motorcyclist",
 ];
 const typedElement = document.getElementById('typed');
 
