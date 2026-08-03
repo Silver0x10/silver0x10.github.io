@@ -67,9 +67,11 @@ function sizeImages() {
     document.querySelectorAll('.project:not(.no-image)').forEach(card => {
         const img = card.querySelector('.project-canvas');
         if (!img || !img.naturalWidth) return;
+        const scale = parseFloat(img.dataset.scale) || 1;
         if (stacked) {
-            img.style.height = '';
-            img.style.width = '';
+            // stacked: as wide as the card allows, the browser keeps the ratio
+            img.style.width = Math.round(scale * 100) + '%';
+            img.style.height = 'auto';
             card.style.marginLeft = '';
             card.style.marginRight = '';
             return;
@@ -77,7 +79,6 @@ function sizeImages() {
         const aspect = img.naturalWidth / img.naturalHeight;
 
         // as tall as the text beside it, at its own aspect ratio
-        const scale = parseFloat(img.dataset.scale) || 1;
         const height = Math.max(card.querySelector('.project-content').offsetHeight, 240) * scale;
         img.style.height = height + 'px';
         img.style.width = height * aspect + 'px';
