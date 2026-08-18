@@ -2,23 +2,23 @@
     {
         "title": "System-Wide Troubleshooting Agent",
         "url": null,
-        "period": "NOVA Reply · 2026",
-        "note": "[ built at work, so no repo :) ]",
-        "points": ["Agentic root-cause analysis with LangGraph", "Kubernetes & OpenStack telemetry", "RAG on a Redis vector store"]
+        "period": "2026",
+        "note": "[ built at work*, so no repo :) ]",
+        "points": ["Agentic root-cause analysis with LangGraph", "Infrastructure telemetry analysis", "RAG on a vector store"]
     },
     {
         "title": "ROS Bag Troubleshooting Agent",
         "url": null,
-        "period": "NOVA Reply · 2026",
-        "note": "[ built at work, so no repo :) ]",
-        "points": ["LangGraph agents + tools", "ROS bag data from a robotic simulation platform", "RAG over a Redis vector store"]
+        "period": "2026",
+        "note": "[ built at work*, so no repo :) ]",
+        "points": ["LangGraph agents + tools", "ROS bag data from a robotic simulation platform", "RAG over a vector store"]
     },
     {
         "title": "Mobile Network Energy Saving",
         "url": null,
-        "period": "NOVA Reply · 2025",
-        "note": "[ built at work, so no repo :) ]",
-        "points": ["Data & integration layer for a PPO agent optimizing 4G/5G energy under QoS", "Kafka-fed FastAPI preprocessing microservice", "Geo-spatial QoS aggregation, VIAVI & O-RAN integration"]
+        "period": "2025",
+        "note": "[ built at work*, so no repo :) ]",
+        "points": ["Data & integration layer for a PPO agent optimizing 4G/5G energy under QoS", "Kafka-fed FastAPI preprocessing microservice", "Geo-spatial QoS aggregation & O-RAN integration"]
     },
     {
         "title": "Epilepsy Diagnosis from EEG",

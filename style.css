@@ -364,6 +364,16 @@ dialog::backdrop {
     margin-bottom: 3rem;
 }
 
+.work-project-note {
+    max-width: 900px;
+    margin: 0 auto 2.5rem;
+    padding: 0 1.5rem;
+    font-size: 0.52em;
+    line-height: 1.6;
+    text-align: center;
+    opacity: 0.72;
+}
+
 .project-period {
     display: block;
     font-size: 0.7em;
